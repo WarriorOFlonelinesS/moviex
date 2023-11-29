@@ -7,7 +7,7 @@ export const Poster = ({ movie }) => {
     : '/placeholder.jpg'; // Замените '/placeholder.jpg' на URL вашего запасного изображения
 
     return (
-        <div style={{ textAlign: 'center'}}>
+        <div style={{ textAlign: 'center',}}>
             <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
             <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>{movie.title}</p>
             <p style={{ fontSize: '10px', width: '150px' }}>{movie.release_date

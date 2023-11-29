@@ -1,4 +1,4 @@
-import {Select, MenuItem} from '@mui/material';
+import {Select, MenuItem, Container} from '@mui/material';
 import styled, { css } from 'styled-components';
 
 export const Select1 = styled(Select)`
@@ -20,4 +20,6 @@ export const Input1 = styled.input`
     outline:none;
     border-bottom: 1px solid black;
   }
+`
+export const Container1 = styled(Container)`
 `

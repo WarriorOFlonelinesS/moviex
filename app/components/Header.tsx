@@ -21,7 +21,7 @@ export const Header = () => {
       <div>
         <Image src={imgSrc2} style={{ marginBottom: '15px' }} alt='logo' />
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection:'row' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection:'row',}}>
  
         <FormControl sx={{
 

@@ -1,8 +1,9 @@
 'use client'
-import { Container, Grid } from "@mui/material"
+import {Grid } from "@mui/material"
 import { Poster } from "./Poster"
 import { useEffect, useState } from "react"
 import { getPosters } from "../api/getPosters"
+import { Container1 } from "../styles"
 export const Main = () => {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
@@ -10,15 +11,15 @@ export const Main = () => {
     }, [])
 
     return (
-        <Container>
-            <Grid container spacing={{ xs: 1, md: 40 }} columns={{ xs: 1, sm: 1, md: 22 }}>
+        <Container1 style={{backgroundColor:'#FFE08F', position:'relative'}}>
+            <Grid container  spacing={{ xs: 1, md: 12 }} columns={{ xs: 1, sm: 1, md: 22 }}>
                 {movies.slice(0, 8).map((movie, index) => (
-                    <Grid item xs={2} sm={1} md={2} key={index} style={{ marginBottom: '-300px'}}>
+                    <Grid item key={index} style={{}}>
                         <Poster movie={movie} />
                     </Grid>
                 ))}
 
             </Grid>
-        </Container>
+        </Container1>
     )
 }

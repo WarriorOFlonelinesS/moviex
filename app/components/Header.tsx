@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, Container, Checkbox }
   from '@mui/material';
+import { SelectChangeEvent } from '@mui/material'; 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Image from 'next/image';
 import imgSrc1 from '../img/Vector.svg';
@@ -8,11 +9,11 @@ import { useState } from 'react';
 import { Input1, Select1, Option } from '../styles'
 
 export const Header = () => {
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState(10);
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value);
   };
-  const [genre, setGenre] = useState('');
+  const [genre, setGenre] = useState(1);
   const handleChangeGenre = (event: SelectChangeEvent) => {
     setGenre(event.target.value);
   };
@@ -65,7 +66,7 @@ export const Header = () => {
             label="Ganre"
             onChange={handleChangeGenre}
           >
-            <Option selected value={1}>Horror</Option>
+            <Option value={1}>Horror</Option>
             <Option value={2}>Comedia</Option>
             <Option value={3}>Sci-fi</Option>
             <Option value={4}>Fantasy</Option>

@@ -8,6 +8,7 @@ export const Poster = ({ movie }) => {
 
     return (
         <div style={{ textAlign: 'center',}}>
+            {/* <p title={}></p> */}
             <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
             <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>{movie.title}</p>
             <p style={{ fontSize: '10px', width: '150px' }}>{movie.release_date

@@ -6,12 +6,12 @@ import { Main } from './components/Main';
 import './globals.css'
 
 export default function Home() {
-  return(
+  return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Header/>
-        <Main />
-  </LocalizationProvider>
+      <Header />
+      <Main />
+    </LocalizationProvider>
 
   )
-  
+
 }

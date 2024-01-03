@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components';
 export const Select1 = styled(Select)`
 font-size:15px;
 height:30px;
-
 `
+
 export const Option = styled(MenuItem)`
 font-size:10px
 margin-top:-110px;

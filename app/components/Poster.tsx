@@ -1,19 +1,26 @@
-import imgSrc1 from '../img/Rectangle 24.svg';
 import Image from "next/image";
-
-export const Poster = ({ movie }: any) => {
-    const posterUrl = movie.poster_path
+import fallbackImage from '../placeholder.png'
+import tooltipImage from '../tooltip.svg'
+import Link from "next/link";
+export const Poster = ({ movie,index }: any) => {
+    const posterUrl = movie.poster_path !== null
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-        : '/placeholder.jpg'; // Замените '/placeholder.jpg' на URL вашего запасного изображения
+        : fallbackImage;
 
     return (
-        <div style={{ textAlign: 'center', }}>
-            {/* <p title={}></p> */}
-            <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
+        <div className='poster' style={{ }}>
+            <div className="poster-link">
+            <Link href={`/components/movie/${movie.id}`}>
+                <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
+            </Link>
+                <div className="tooltip">
+                    <Image src={tooltipImage} alt="" />
+                    <span className="tooltiptext">{movie.overview}</span>
+                </div>
+            </div>
             <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>{movie.title}</p>
-            <p style={{ fontSize: '10px', width: '150px' }}>{movie.release_date
+            <p style={{ fontWeight: 'bold', fontSize: '10px', width: '150px' }}>{movie.release_date
             }</p>
-            <p style={{ fontSize: '10px', width: '150px' }}>{movie.genre_ids.map(item => { return (<p>{item}</p>) })}</p>
         </div>
     )
 }

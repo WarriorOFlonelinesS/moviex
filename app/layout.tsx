@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { ReduxProvider } from '../app/redux/provider'
+import { ReduxProvider } from '../app/redux/provider';
+import imgSrc2 from './img/Moviex.svg';
+import Image from 'next/image';
+import { Container1 } from './styles';
 
 export const metadata: Metadata = {
   title: 'Moviex',
@@ -14,7 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body><ReduxProvider> {children} </ReduxProvider></body>
+      <body>
+        <div className='logo'>
+          <div className='logo-content'>
+          <Image src={imgSrc2} style={{ marginBottom: '15px' }} alt='logo' />
+          </div>
+        </div>
+        <ReduxProvider>
+          {children}
+        </ReduxProvider></body>
     </html>
   )
 }

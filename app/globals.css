@@ -1,16 +1,142 @@
-.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
-    height: 28px;
-    font-size: 15px;
-    margin-top: -3px;
-}
-.MuiFormLabel-root{
-    font-size: 15px;
-    top: -16px;
+body {
+  font-family: "Poppins", sans-serif;
 }
 
-.sc-hKgKIp{
-    margin-top: 81px;
+.logo {
+  display: flex;
+  justify-content: center;
 }
-.css-f6m1hq-MuiGrid-root{
-    margin-left: 14px;
+
+.logo-content {
+  display: flex;
+  display: flex;
+  justify-content: start;
+  width: 1210px;
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  height: 28px;
+  font-size: 15px;
+  margin-top: -3px;
+}
+.MuiFormLabel-root {
+  font-size: 15px;
+  top: -16px;
+}
+
+.poster {
+  text-align: center;
+  cursor: pointer;
+}
+
+.poster-link {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  display: inline-block;
+  left: 138px;
+  top: 5px;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #ffe08f;
+  color: black;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  border: 1px solid black;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.sc-hKgKIp {
+  margin-top: 81px;
+}
+
+.css-f6m1hq-MuiGrid-root {
+  margin-left: 21px;
+}
+
+.film__link {
+  top: 60px;
+  margin: -23px;
+  font-size: 14px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.71);
+
+  font-family: "Poppins", sans-serif;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.arrow {
+  margin-right: 10px;
+}
+
+.film-content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 43px;
+}
+
+.film-description {
+  background-color: #ffe08f;
+  width: 691.907px;
+  height: 700.039px;
+  margin-left: 36px;
+
+}
+
+.film__title {
+  text-align: center;
+  color: #000;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 320px;
+}
+
+.film__overview {
+  color: #000;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 29px;
+  line-height: normal;
+  margin-top: -12px;
+
+}
+
+.film-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -18px;
+}
+
+.film-raiting{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  height: 59px;
+  width: 167px;
+}
+
+.film-vote_avarage{
+  font-size: 33px;
 }

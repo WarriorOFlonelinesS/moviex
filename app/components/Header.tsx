@@ -6,48 +6,54 @@ import { SelectChangeEvent } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Image from 'next/image';
 import imgSrc1 from '../img/Vector.svg';
-import imgSrc2 from '../img/Moviex.svg'
+
 import { useState } from 'react';
 import { Input1, Select1, Option } from '../styles'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { GET_MOVIES, getMovies } from '../redux/features/movies-slice';
-import { Main } from './Main';
-import { getMoviesSaga } from '../redux/features/saga/movie.saga';
+import { useDispatch } from 'react-redux';
+import { getMoviesByFilter } from '../redux/features/movies-slice';
+import { getMoviesBySearch } from '../redux/features/movies-slice';
 
-
+// Ваш компонент Header
 export const Header = () => {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const [language, setLanguage] = useState('');
+  const [genre, setGenre] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [adult, setAdult] = useState(false);
+  
+  const handleChangeValue = () =>{
+    dispatch(getMoviesBySearch({searchValue: value}))
 
-const dispatch = useDispatch()
-const [language, setLanguage] = useState('');
+  } 
+
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value);
   };
- const [genre, setGenre] = useState('');
+
   const handleChangeGenre = (event: SelectChangeEvent) => {
     setGenre(event.target.value);
-    dispatch(getMovies(genre))
-    console.log(genre)
   };
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      if (genre !== '') {
-        await dispatch(getMovies(genre));
-        console.log(genre);
+      if (genre !== '' && selectedDate !== null) {
+        dispatch(getMoviesByFilter({ genreId: genre, selectedDate: selectedDate.toISOString().split('T')[0], includeAdult: adult }));
       }
     };
 
     fetchData();
-  }, [genre, dispatch]);
+  }, [genre, selectedDate, adult, dispatch]);
   return (
     <Container>
-      <div>
-        <Image src={imgSrc2} style={{ marginBottom: '15px' }} alt='logo' />
-      </div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', }}>
 
         <FormControl sx={{
-
           border: '1px solid black',
           height: '23px',
           width: '238px',
@@ -59,8 +65,8 @@ const [language, setLanguage] = useState('');
             left: '10px',
             top: '2px',
             cursor: 'pointer'
-          }} alt="где картинка?" />
-          <Input1 ></Input1>
+          }} alt="где картинка?" onClick={handleChangeValue}/>
+          <Input1 onChange={(e)=>{setValue(e.target.value)}}></Input1>
         </FormControl>
         <FormControl sx={{ m: 1, minWidth: 140 }}>
           <InputLabel sx={{ fontSize: '10px', marginTop: '4px' }} id="demo-simple-select-helper-label">Languange</InputLabel>
@@ -77,7 +83,7 @@ const [language, setLanguage] = useState('');
           </Select1>
         </FormControl>
         <FormControl sx={{ height: '20px' }}>
-          <DatePicker label="Basic date picker" />
+          <DatePicker label="Basic date picker" onChange={handleDateChange} />
         </FormControl>
         <FormControl sx={{ m: 1, minWidth: 100, minHeight: 100, top: '35px' }}>
           <InputLabel sx={{ fontSize: '10px', marginTop: '5px' }} id="demo-simple-select-helper-label">Genre</InputLabel>
@@ -98,7 +104,7 @@ const [language, setLanguage] = useState('');
         </FormControl>
         <FormControl>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            18+<Checkbox />
+            18+<Checkbox onClick={() => { setAdult(!adult) }} />
           </div>
         </FormControl>
       </div>

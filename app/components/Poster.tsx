@@ -1,4 +1,5 @@
 import Image from "next/image";
+import star from '../Star.svg'
 import fallbackImage from '../placeholder.png'
 import tooltipImage from '../tooltip.svg'
 import Link from "next/link";
@@ -16,7 +17,12 @@ export const Poster = ({ movie,index }: any) => {
                 <div className="tooltip">
                     <Image src={tooltipImage} alt="" />
                     <span className="tooltiptext">{movie.overview}</span>
+                    <p className='poster-vote_avarage'>
+                            <span className='star'>
+                                <Image className="star_poster" src={star} alt="" />
+                            </span>{movie.vote_average}</p>
                 </div>
+              
             </div>
             <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>{movie.title}</p>
             <p style={{ fontWeight: 'bold', fontSize: '10px', width: '150px' }}>{movie.release_date

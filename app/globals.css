@@ -33,6 +33,20 @@ body {
   position: relative;
 }
 
+.poster-vote_avarage{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 197px;
+  left: -24px;
+  font-size: 12px;
+  color: yellow;
+}
+
+.star_poster{
+  width: 22px;
+}
+
 .tooltip {
   position: absolute;
   display: inline-block;
@@ -97,7 +111,6 @@ body {
   width: 691.907px;
   height: 700.039px;
   margin-left: 36px;
-
 }
 
 .film__title {
@@ -118,17 +131,16 @@ body {
   padding: 29px;
   line-height: normal;
   margin-top: -12px;
-
 }
 
-.film-header{
+.film-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: -18px;
 }
 
-.film-raiting{
+.film-raiting {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -137,6 +149,128 @@ body {
   width: 167px;
 }
 
-.film-vote_avarage{
+.film-vote_avarage {
   font-size: 33px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Півпрозорий чорний фон */
+}
+
+.modal-content {
+  background-color: #ffe08f;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 39px;
+  border: 1px solid #888;
+  width: 1022.602px;
+  height: 700.039px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 78px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
+
+.modal__title {
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 26px;
+}
+
+.modal__input {
+  width: 788.607px;
+  height: 105px;
+  margin-top: 172px;
+  margin-left: 106px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 85px;
+  font-style: normal;
+  font-weight: 700;
+  &:focus {
+    outline: none;
+  }
+}
+
+.modal-buttons {
+  width: 567px;
+  margin-top: 161px;
+  margin-left: 353px;
+  display: flex;
+}
+
+.modal__btn {
+  border-radius: 72px;
+  background: #ab9660;
+  margin-right: 32px;
+  width: 329.812px;
+  height: 99.433px;
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: none;
+  cursor: pointer;
+  &:active {
+    transition: all 0.1s ease-in-out;
+    transform: scale(0.9);
+  }
+}
+
+.main-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  padding: 0px;
+}
+
+.pagination__btn {
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    background-color: gray;
+  }
+}
+
+.pagination__btn_number{
+  font-size: 29px;
 }

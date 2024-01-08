@@ -26,7 +26,7 @@ i18n
   .init({
     returnEmptyString: false,
     debug: true,
-    fallbackLng: 'ru',
+    fallbackLng: 'en',
     resources
   });
 

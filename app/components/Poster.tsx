@@ -10,7 +10,7 @@ export const Poster = ({ movie, }: any) => {
         : fallbackImage;
 
     return (
-        <div className='poster' style={{}}>
+        <div className='poster'>
             <div className="poster-link">
                 <Link href={`/components/movie/${movie.id}`}>
                     <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
@@ -21,12 +21,16 @@ export const Poster = ({ movie, }: any) => {
                     <p className='poster-vote_avarage'>
                         <span className='star'>
                             <Image className="star_poster" src={star} alt="" />
-                        </span>{movie.vote_average}</p>
+                        </span>{movie.vote_average}
+                    </p>
                 </div>
             </div>
-            <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>{movie.title}</p>
-            <p style={{ fontWeight: 'bold', fontSize: '10px', width: '150px' }}>{movie.release_date
-            }</p>
+            <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>
+                {movie.title}
+            </p>
+            <p style={{ fontWeight: 'bold', fontSize: '10px', width: '150px' }}>
+                {movie.release_date}
+            </p>
         </div>
     )
 }

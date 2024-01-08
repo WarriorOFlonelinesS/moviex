@@ -15,8 +15,8 @@ type Props = {
     }
 }
 
-async function fetchFilm(id:number) {
-  
+async function fetchFilm(id: number) {
+
     try {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=88850dae741dd06839de667d163566d7`);
         return response
@@ -43,33 +43,35 @@ export default function MoviePage({ params: { id } }: Props) {
     }, [])
 
     const posterUrl = film.poster_path !== null
-    ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
-    : fallbackImage;
-return (  
-    <div className="film">
-    <Modal showModal={modalVisible} closeModal={closeModal} movieId = {id} />
-    <Container>
-        <Link className="film__link" href='/'>
-            <span className='arrow'><Image src={arrow} alt='arrow' /></span>  Back to main
-        </Link>
-        <div className="film-content">
-            <Image width={444.685} height={700} src={posterUrl} alt='poster' />
-            <div className='film-description'>
-                <div className='film-header'>
-                    <p className='film-vote_avarage'>
-                    <span className='star'>
-                        <Image src={star} alt="" />
-                    </span>{film.vote_average}</p>
-                    <h1 className='film__title'>{film.original_title}</h1>
-                    <button className='film-raiting' onClick={openModal}>Leave raiting</button>
+        ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
+        : fallbackImage;
+    return (
+        <div className="film">
+            <Modal showModal={modalVisible} closeModal={closeModal} movieId={id} />
+            <Container>
+                <Link className="film__link" href='/'>
+                    <span className='arrow'><Image src={arrow} alt='arrow' /></span>  Back to main
+                </Link>
+                <div className="film-content">
+                    <Image width={444.685} height={700} src={posterUrl} alt='poster' />
+                    <div className='film-description'>
+                        <div className='film-header'>
+                            <p className='film-vote_avarage'>
+                                <span className='star'>
+                                    <Image src={star} alt="" />
+                                </span>
+                                {film.vote_average}
+                            </p>
+                            <h1 className='film__title'>{film.original_title}</h1>
+                            <button className='film-raiting' onClick={openModal}>Leave raiting</button>
+                        </div>
+                        <p className='film__overview'>
+                            {film.overview}
+                        </p>
+                    </div>
                 </div>
-                <p className='film__overview'>
-                    {film.overview}
-                </p>
-            </div>
+            </Container>
         </div>
-    </Container>
-</div>
 
-)
+    )
 }

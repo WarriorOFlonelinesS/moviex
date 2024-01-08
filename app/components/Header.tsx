@@ -1,5 +1,6 @@
 'use client'
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormControl, InputLabel, Container, Checkbox }
   from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
@@ -10,8 +11,7 @@ import { useState } from 'react';
 import { Input1, Select1, Option } from '../styles'
 import { useDispatch } from 'react-redux';
 import { getMoviesByFilter, getMoviesByLanguage, getMoviesBySearch } from '../redux/actions';
-import { useTranslation } from "next-i18next"
-// Ваш компонент Header
+
 export const Header = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ export const Header = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [adult, setAdult] = useState(false);
 
-  console.log(i18n.language)
   const handleChangeValue = () => {
     dispatch(getMoviesBySearch({ searchValue: value }))
 
@@ -86,7 +85,7 @@ export const Header = () => {
             label='language'
             onChange={handleChange}
           >
-            <Option selected value={'en'}>English</Option>
+            <Option value={'en'}>English</Option>
             <Option value={'ru'}>Русский</Option>
             <Option value={'uk'}>Українська</Option>
           </Select1>

@@ -1,5 +1,6 @@
 import {Select, MenuItem, Container} from '@mui/material';
 import styled, { css } from 'styled-components';
+import { Loading } from './Loading';
 
 export const Select1 = styled(Select)`
 font-size:15px;

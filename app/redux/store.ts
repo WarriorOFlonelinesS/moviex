@@ -2,17 +2,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { takeEvery } from "redux-saga/effects";
-import { GET_MOVIES, GET_MOVIES_BY_FILTER, GET_MOVIES_BY_SEARCH,  } from "./features/movies-slice";
+import { GET_MOVIES, GET_MOVIES_BY_FILTER, GET_MOVIES_BY_LANGUAGE, GET_MOVIES_BY_SEARCH,  } from "./actions";
 import moviesReducer from "./features/movies-slice";
-import { getMoviesByFilterSaga, getMoviesBySearchSaga, getMoviesSaga } from "./features/saga/movie.saga";
+import { getMoviesByFilterSaga, getMoviesByLanguageSaga, getMoviesBySearchSaga, getMoviesSaga } from "./features/saga/movie.saga";
 
 function* saga() {
   yield takeEvery(GET_MOVIES, getMoviesSaga);
   yield takeEvery(GET_MOVIES_BY_FILTER, getMoviesByFilterSaga)
   yield takeEvery(GET_MOVIES_BY_SEARCH, getMoviesBySearchSaga)
+  yield takeEvery(GET_MOVIES_BY_LANGUAGE, getMoviesByLanguageSaga)
 }
-
-
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,5 +24,8 @@ const store = configureStore({
 });
 
 sagaMiddleware.run(saga);
+
+export type AppStore = ReturnType<typeof configureStore>;
+export type AppDispatch = AppStore["dispatch"];
 
 export default store;

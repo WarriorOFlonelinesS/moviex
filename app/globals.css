@@ -78,8 +78,11 @@ body {
   margin-top: 81px;
 }
 
-.css-f6m1hq-MuiGrid-root {
-  margin-left: 21px;
+@media (min-width: 900px){
+.css-1v4zimy-MuiGrid-root {
+  width: calc(100% + 96px);
+  margin-left: -1px !important;
+}
 }
 
 .film__link {
@@ -273,4 +276,10 @@ body {
 
 .pagination__btn_number{
   font-size: 29px;
+}
+
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

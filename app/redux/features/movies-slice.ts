@@ -1,9 +1,13 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const moviesSlice = createSlice({
   name: "movies",
   initialState: {
     movies: [],
+    userRatings: {}, // Змінив userRatings на об'єкт
+    newRatings: {},
+    currentPage : 1,
+    filmsPerPage: 8,  
     status: "idle",
     error: null,
   },
@@ -16,28 +20,28 @@ const moviesSlice = createSlice({
       state.status = "failed";
       state.error = action.payload;
     },
+    addRating: (state:any, action) => {
+      const { movieId, rating } = action.payload;
+      state.userRatings[movieId] = rating; // Змінив userRatings на об'єкт і додав новий рейтинг
+      state.newRatings[movieId] = recalculateVoteAverage(state.userRatings); // Виправив передачу параметрів
+    },
+    removeRating: (state:any, action) => {
+      const { movieId } = action.payload;
+      const removedRating = state.userRatings[movieId];
+      delete state.newRatings[movieId];
+    },
+    setCurrentPage: (state:any, action) => {
+      state.currentPage=action.payload
+    }
   },
 });
 
-export const { getMoviesSuccess, getMoviesFailure } = moviesSlice.actions;
-export const GET_MOVIES = "movies/GetMovies";
-export const getMovies = createAction(GET_MOVIES);
-export const GET_MOVIES_BY_FILTER = "movies/GetMoviesByFilter";
-export const getMoviesByFilter = createAction(
-  GET_MOVIES_BY_FILTER,
-  (payload) => {
-    return {
-      payload,
-    };
-  }
-);
-export const GET_MOVIES_BY_SEARCH = "movies/GetMoviesBySearch";
-export const getMoviesBySearch = createAction(
-  GET_MOVIES_BY_SEARCH,
-  (payload) => {
-    return {
-      payload,
-    };
-  }
-);
+const recalculateVoteAverage = (ratings:any) => { 
+  const totalRatings = Object.values(ratings).reduce((acc:number, rating:any) => acc + rating, 0);
+  const averageRating = totalRatings / Object.keys(ratings).length;
+  return averageRating;
+};
+
+export const { getMoviesSuccess, getMoviesFailure, addRating, removeRating, setCurrentPage } = moviesSlice.actions;
+
 export default moviesSlice.reducer;

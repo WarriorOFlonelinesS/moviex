@@ -1,6 +1,9 @@
 import { CircularProgress } from "@mui/material" 
 export const Loading = () => {
     return (
-        <CircularProgress color="secondary" />
+        <div className="loading">
+            <CircularProgress color="secondary" />
+        </div>
+
     )
 }

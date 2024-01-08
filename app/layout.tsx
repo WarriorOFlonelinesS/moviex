@@ -3,7 +3,7 @@ import './globals.css'
 import { ReduxProvider } from '../app/redux/provider';
 import imgSrc2 from './img/Moviex.svg';
 import Image from 'next/image';
-import { Container1 } from './styles';
+import { LanguageProvider } from './providers/18nprovider';
 
 export const metadata: Metadata = {
   title: 'Moviex',
@@ -20,12 +20,15 @@ export default function RootLayout({
       <body>
         <div className='logo'>
           <div className='logo-content'>
-          <Image src={imgSrc2} style={{ marginBottom: '15px' }} alt='logo' />
+            <Image src={imgSrc2} style={{ marginBottom: '15px' }} alt='logo' />
           </div>
         </div>
-        <ReduxProvider>
-          {children}
-        </ReduxProvider></body>
+        <LanguageProvider>
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
+        </LanguageProvider>
+      </body>
     </html>
   )
 }

@@ -1,18 +1,19 @@
 import Image from "next/image";
-import star from '../Star.svg'
-import fallbackImage from '../placeholder.png'
-import tooltipImage from '../tooltip.svg'
+import star from '../../public/images/Star.svg'
+import fallbackImage from '../../public/images/placeholder.png'
+import tooltipImage from '../../public/images/tooltip.svg'
 import Link from 'next/link';
+import { urlImages, urlMoviePage } from "@/constans/urls";
 
 export const Poster = ({ movie, }: any) => {
     const posterUrl = movie.poster_path !== null
-        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        ? `${urlImages}${movie.poster_path}`
         : fallbackImage;
 
     return (
         <div className='poster'>
             <div className="poster-link">
-                <Link href={`/components/movie/${movie.id}`}>
+                <Link href={`${urlMoviePage}${movie.id}`}>
                     <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
                 </Link>
                 <div className="tooltip">

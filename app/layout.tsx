@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ReduxProvider } from '../app/redux/provider';
-import imgSrc2 from './img/Moviex.svg';
+import logoHeader from '../public/images/Moviex.svg';
 import Image from 'next/image';
 import { LanguageProvider } from './providers/18nprovider';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Moviex',
@@ -17,17 +18,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <header>
+      <link rel="icon" href='../public/icon/favicon.ico' sizes="any" />
+      </header>
       <body>
         <div className='logo'>
           <div className='logo-content'>
-            <Image src={imgSrc2} style={{ marginBottom: '15px' }} alt='logo' />
+            <Image src={logoHeader} style={{ marginBottom: '15px' }} alt='logo' />
           </div>
         </div>
-        <LanguageProvider>
-          <ReduxProvider>
-            {children}
-          </ReduxProvider>
-        </LanguageProvider>
+        <Suspense fallback="Loading...">
+          <LanguageProvider>
+            <ReduxProvider>
+              {children}
+            </ReduxProvider>
+          </LanguageProvider>
+        </Suspense>
       </body>
     </html>
   )

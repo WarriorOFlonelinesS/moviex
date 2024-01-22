@@ -5,102 +5,105 @@ import { FormControl, InputLabel, Container, Checkbox }
   from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Image from 'next/image';
-import imgSrc1 from '../img/Vector.svg';
+import imgSrc1 from '../../public/images/Vector.svg';
 import { useState } from 'react';
-import { Input1, Select1, Option } from '../styles'
+import { Input1, Option, Content, FormControlSearch, ImageSearch, FormControlLanguage, Select, FormControlDate, FormControlGenre, FormControlAdult } from '../styles'
 import { useDispatch } from 'react-redux';
 import { getMoviesByFilter, getMoviesByLanguage, getMoviesBySearch } from '../redux/actions';
 
-export const Header = () => {
+interface HeaderProps {}
+
+export interface State {
+  value: string;
+  language: string;
+  genreId: string;
+  selectedDate: null | string | Date;
+  includeAdult: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
-  const [language, setLanguage] = useState('');
-  const [genre, setGenre] = useState('');
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [adult, setAdult] = useState(false);
+  const [state, setState] = useState({
+    value: '',
+    language: '',
+    genre: '',
+    selectedDate: null,
+    adult: false,
+  });
+
+  const handleChange = (field: string, newValue: string | SelectChangeEvent | Date | boolean) => {
+    setState((prevState) => ({
+      ...prevState,
+      [field]: field === 'selectedDate' ? (newValue as Date).toISOString().split('T')[0] : newValue,
+    }));
+  };
+  
 
   const handleChangeValue = () => {
-    dispatch(getMoviesBySearch({ searchValue: value }))
-
+    dispatch(getMoviesBySearch({ searchValue: state.value, language: state.language }))
   }
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setLanguage(event.target.value);
+  const handleChangeLanguage = (event: SelectChangeEvent) => {
+    handleChange('language', event.target.value)
     changeLanguage(event.target.value)
-
   };
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
-
-  const handleChangeGenre = (event: SelectChangeEvent) => {
-    setGenre(event.target.value);
-  };
-
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
-      if (genre !== '' && selectedDate !== null) {
-        dispatch(getMoviesByFilter({ genreId: genre, selectedDate: selectedDate.toISOString().split('T')[0], includeAdult: adult }));
+      if (state.genre !== '' && state.selectedDate !== null) {
+        dispatch(getMoviesByFilter({
+          genreId: state.genre, selectedDate: state.selectedDate, includeAdult: state.adult,
+          value: '',
+          language: state.language
+        }));
       }
-      if (language !== '') {
-        dispatch(getMoviesByLanguage({ language: language }))
+      if (state.language !== '') {
+        dispatch(getMoviesByLanguage({ language: state.language }))
       }
     };
 
     fetchData();
-  }, [genre, selectedDate, adult, language, dispatch]);
+  }, [state.genre, state.selectedDate, state.adult, state.language, dispatch]);
+
 
   return (
     <Container>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', }}>
-        <FormControl sx={{
-          border: '1px solid black',
-          height: '23px',
-          width: '238px',
-          borderRadius: '20px',
-          position: 'relative'
-        }}>
-          <Image src={imgSrc1} style={{
-            position: 'absolute',
-            left: '10px',
-            top: '2px',
-            cursor: 'pointer'
-          }} alt="где картинка?" onClick={handleChangeValue} />
-          <Input1 onChange={(e) => { setValue(e.target.value) }}></Input1>
-        </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 140 }}>
-          <InputLabel sx={{ fontSize: '10px', marginTop: '4px' }} id="demo-simple-select-helper-label">{t("language")}</InputLabel>
-          <Select1
+      <Content>
+        <FormControlSearch>
+          <ImageSearch src={imgSrc1} alt="где картинка?" onClick={handleChangeValue} />
+          <Input1 onChange={(e) => { handleChange('value', e.target.value) }}></Input1>
+        </FormControlSearch>
+        <FormControlLanguage>
+          <InputLabel
+          id="demo-simple-select-helper-label">{t("language")}</InputLabel>
+          <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
-            value={language}
+            value={state.language}
             label='language'
-            onChange={handleChange}
+            onChange={handleChangeLanguage}
           >
             <Option value={'en'}>English</Option>
             <Option value={'ru'}>Русский</Option>
             <Option value={'uk'}>Українська</Option>
-          </Select1>
-        </FormControl>
-        <FormControl sx={{ height: '20px' }}>
-          <DatePicker label={t("datapicker")} onChange={handleDateChange} />
-        </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 100, minHeight: 100, top: '35px' }}>
+          </Select>
+        </FormControlLanguage>
+        <FormControlDate>
+          <DatePicker label={t("datapicker")} onChange={(date) => { handleChange('selectedDate', date) }} />
+        </FormControlDate>
+        <FormControlGenre>
           <InputLabel sx={{ fontSize: '10px', marginTop: '5px' }} id="demo-simple-select-helper-label">{t("genre")}</InputLabel>
-          <Select1
+          <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
-            value={genre}
+            value={state.genre}
             label="Ganre"
-            onChange={handleChangeGenre}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => { handleChange('genre', event.target.value) }}
           >
             <Option value={27}>Horror</Option>
             <Option value={35}>Comedia</Option>
@@ -108,14 +111,14 @@ export const Header = () => {
             <Option value={14}>Fantasy</Option>
             <Option value={16}>Animation</Option>
             <Option value={28}>Action</Option>
-          </Select1>
-        </FormControl>
-        <FormControl>
+          </Select>
+        </FormControlGenre>
+        <FormControlAdult>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            18+<Checkbox onClick={() => { setAdult(!adult) }} />
+            18+<Checkbox onClick={() => { handleChange('adult', true) }} />
           </div>
-        </FormControl>
-      </div>
+        </FormControlAdult>
+      </Content>
     </Container>
   )
 }

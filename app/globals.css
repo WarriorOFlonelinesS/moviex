@@ -54,7 +54,6 @@ body {
   top: 5px;
 }
 
-/* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 300px;

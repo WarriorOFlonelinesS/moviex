@@ -1,11 +1,11 @@
 // Main.jsx
-import arrowLeft from '../ArrowLeft.svg';
-import arrowRight from '../ArrowRight.svg'
+import arrowLeft from '../../public/images/ArrowLeft.svg';
+import arrowRight from '../../public/images/ArrowRight.svg'
 import { Grid } from "@mui/material";
 import { Poster } from "./Poster";
 import { SetStateAction } from "react";
-import { Container1 } from "../styles";
-import { Loading } from "../Loading";
+import { MainContent } from "../styles";
+import { Loading } from "./Loading";
 import { Pagination } from "./Pagination";
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
@@ -20,30 +20,23 @@ export const Main = () => {
   const currentFilm = useAppSelector(getCurrentFilm); // Use the selector
   const currentPage = useAppSelector((state): SetStateAction<number> => state.movies.currentPage);
   const filmsPerPage = useAppSelector((state): SetStateAction<number> => state.movies.filmsPerPage);
-
   const paginate = (pageNumber: SetStateAction<number>): void => dispatch(setCurrentPage(pageNumber));
   const totalPages = Math.ceil(movies.length / filmsPerPage);
+  const nextPage = () => dispatch(setCurrentPage(currentPage === totalPages ? 1 : currentPage + 1));
 
-  const nextPage = () => {
-    const nextPageNumber = currentPage === totalPages ? 1 : currentPage + 1;
-    dispatch(setCurrentPage(nextPageNumber));
-  };
-
-  const prevPage = () => {
-    const prevPageNumber = currentPage === 1 ? totalPages : currentPage - 1;
-    dispatch(setCurrentPage(prevPageNumber));
-  };
+  const prevPage = () => dispatch(setCurrentPage(currentPage === 1 ? totalPages : currentPage - 1));
+  ;
 
   return (
     <>
       {movies.length == 0 ? (
         <Loading />
       ) : (
-        <Container1 style={{ backgroundColor: '#FFE08F', position: 'relative' }}>
+        <MainContent>
           <Grid container spacing={{ xs: 0, md: 12 }}>
             {currentFilm.map((movie: any, index: number) => (
-              <Grid item key={index}>
-                <Poster style={{ paddingLeft: '146px' }} movie={movie} index={index} array={movies} />
+              <Grid item key={movie.id}>
+                <Poster style={{ paddingLeft: '146px' }} movie={movie} index={movie} array={movies} />
               </Grid>
             ))}
           </Grid>
@@ -58,7 +51,7 @@ export const Main = () => {
               <Image src={arrowRight} alt='right' />
             </button>
           </div>
-        </Container1>
+        </MainContent >
       )}
     </>
   );

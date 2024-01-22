@@ -27,7 +27,6 @@ const moviesSlice = createSlice({
     },
     removeRating: (state:any, action) => {
       const { movieId } = action.payload;
-      const removedRating = state.userRatings[movieId];
       delete state.newRatings[movieId];
     },
     setCurrentPage: (state:any, action) => {

@@ -18,7 +18,6 @@ const resources = {
   }
 };
 
-
 i18n
   .use(Backend)
   .use(LanguageDetector)

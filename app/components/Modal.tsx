@@ -1,19 +1,23 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRating, removeRating } from "../redux/actions";
-import { useTranslation } from "react-i18next";
 
-export const Modal = ({ showModal, closeModal, movieId }: { showModal: boolean, closeModal: MouseEventHandler, movieId: number }) => {
-  const { t, i18n } = useTranslation();
-  const [myRating, setRating] = useState('');
+interface ModalProps {
+  showModal: boolean;
+  closeModal: MouseEventHandler;
+  movieId: number;
+}
+
+export const Modal = ({ showModal, closeModal, movieId }:ModalProps) => {
+  const [myRating, setRating] = useState<string>('');
   const rating = useSelector((state: any) => state.movies.newRatings);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setRating(rating[movieId]?.toString() || ''); // Оновлення value в input при зміні рейтингу
+    setRating(rating[movieId]?.toString() || ''); // Обновление value в input при изменении рейтинга
   }, [rating, movieId]);
 
-  const handleAddRating = () => {
+  const handleAddRating = ():void => {
     if (Number(myRating)) {
       if (Number(myRating) > 10) {
         alert('More than 10');
@@ -46,3 +50,5 @@ export const Modal = ({ showModal, closeModal, movieId }: { showModal: boolean, 
     </div>
   );
 };
+
+export default Modal;

@@ -4,8 +4,9 @@ import fallbackImage from '../../public/images/placeholder.png'
 import tooltipImage from '../../public/images/tooltip.svg'
 import Link from 'next/link';
 import { urlImages, urlMoviePage } from "@/constans/urls";
+import { Text } from "../styles";
 
-export const Poster = ({ movie, }: any) => {
+export const Poster = ({ movie, lang}: any) => {
     const posterUrl = movie.poster_path !== null
         ? `${urlImages}${movie.poster_path}`
         : fallbackImage;
@@ -13,7 +14,7 @@ export const Poster = ({ movie, }: any) => {
     return (
         <div className='poster'>
             <div className="poster-link">
-                <Link href={`${urlMoviePage}${movie.id}`}>
+                <Link href={`${urlMoviePage}${movie.id}${lang}`}>
                     <Image alt='poster' width={161.59} height={253.8} src={posterUrl}></Image>
                 </Link>
                 <div className="tooltip">
@@ -26,12 +27,12 @@ export const Poster = ({ movie, }: any) => {
                     </p>
                 </div>
             </div>
-            <p style={{ fontSize: '12px', width: '150px', fontWeight: 'bold' }}>
+            <Text>
                 {movie.title}
-            </p>
-            <p style={{ fontWeight: 'bold', fontSize: '10px', width: '150px' }}>
+            </Text>
+            <Text>
                 {movie.release_date}
-            </p>
+            </Text>
         </div>
     )
 }

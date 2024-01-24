@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const moviesSlice = createSlice({
-  name: "movies",
-  initialState: {
+interface MoviesState {
+  movies: any[];
+  userRatings:any,
+  newRatings: any,
+  currentPage: number;
+  filmsPerPage: number;
+  status:string;
+  error: null | string
+}
+
+  const initialState: MoviesState = {
     movies: [],
     userRatings: {}, // Змінив userRatings на об'єкт
     newRatings: {},
@@ -10,7 +18,12 @@ const moviesSlice = createSlice({
     filmsPerPage: 8,  
     status: "idle",
     error: null,
-  },
+  }
+
+
+const moviesSlice = createSlice({
+  name: "movies",
+  initialState,
   reducers: {
     getMoviesSuccess: (state, action) => {
       state.status = "succeeded";

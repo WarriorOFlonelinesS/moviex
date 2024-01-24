@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect';
+import { AppStore } from './store';
 
-const getMovies = (state) => state.movies.movies;
-const getCurrentPage = (state) => state.movies.currentPage;
+
+const getMovies = (state:AppStore) => state.movies.movies;
+const getCurrentPage = (state:AppStore) => state.movies.currentPage;
 const getFilmsPerPage = (state) => state.movies.filmsPerPage;
 
 export const getCurrentFilm = createSelector(

@@ -19,7 +19,7 @@ export const Option = styled(MenuItem)`
   width:100px
 `;
 
-export const Input1 = styled.input`
+export const InputSearch = styled.input`
   margin-top: 2px;
   margin-left: 29px;
   border: none;
@@ -83,4 +83,10 @@ export const FormControlAdult = styled(FormControl)`
 export const InputLabel = styled(InputLabel)`
   font-size: 10px;
   margin-top: 4px;
+`;
+
+export const Text = styled.p`
+  font-size: 12px;
+  width: 150px;
+  font-weight: bold;
 `;

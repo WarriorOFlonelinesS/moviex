@@ -12,21 +12,22 @@ import { apiKey, urlImages, urlMovie } from '@/constans/urls';
 
 type Props = {
     params: {
-        id: number,
+        id: string,
+        lang: string
     }
 }
 
-async function fetchFilm(id: number) {
+async function fetchFilm(id: string, lang: string = 'en') {
 
     try {
-        const response = await axios.get(`${urlMovie}${id}?api_key=${apiKey}`);
+        const response = await axios.get(`${urlMovie}${id}?api_key=${apiKey}&language=${lang}`);
         return response
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-export default function MoviePage({ params: { id } }: Props) {
+export default function MoviePage({ params: { id,lang } }: Props) {
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -44,17 +45,18 @@ export default function MoviePage({ params: { id } }: Props) {
         original_title: null,
         overview: null
     })
+    const language = id.replace(/\d+/g, '');
 
-    useEffect(() => {
-        fetchFilm(id).then((resp: any) => setFilm(resp.data))
-    }, [])
+        useEffect(() => {
+            fetchFilm(id, language).then((resp: any) => setFilm(resp.data))
+        }, [])
 
     const posterUrl = film.poster_path !== null
         ? `${urlImages}${film.poster_path}`
         : fallbackImage
     return (
         <div className="film">
-            <Modal showModal={modalVisible} closeModal={closeModal} movieId={id} />
+            <Modal showModal={modalVisible} closeModal={closeModal} movieId={Number(id)} />
             <Container>
                 <Link className="film__link" href='/'>
                     <span className='arrow'><Image src={arrow} alt='arrow' /></span>  Back to main

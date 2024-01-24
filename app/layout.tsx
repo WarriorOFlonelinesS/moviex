@@ -27,7 +27,7 @@ export default function RootLayout({
             <Image src={logoHeader} style={{ marginBottom: '15px' }} alt='logo' />
           </div>
         </div>
-        <Suspense fallback="Loading...">
+        <Suspense fallback="...Loading">
           <LanguageProvider>
             <ReduxProvider>
               {children}

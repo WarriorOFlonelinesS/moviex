@@ -1,30 +1,29 @@
-'use client'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormControl, InputLabel, Container, Checkbox }
-  from '@mui/material';
+import { FormControl, InputLabel, Container, Checkbox } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import imgSrc1 from '../../public/images/Vector.svg';
-import { useState } from 'react';
-import { Input1, Option, Content, FormControlSearch, ImageSearch, FormControlLanguage, Select, FormControlDate, FormControlGenre, FormControlAdult } from '../styles'
+import { InputSearch, Option, Content, FormControlSearch, ImageSearch, FormControlLanguage, Select, FormControlDate, FormControlGenre, FormControlAdult } from '../styles';
 import { useDispatch } from 'react-redux';
 import { getMoviesByFilter, getMoviesByLanguage, getMoviesBySearch } from '../redux/actions';
 
-interface HeaderProps {}
-
-export interface State {
-  value: string;
-  language: string;
-  genreId: string;
-  selectedDate: null | string | Date;
-  includeAdult: boolean;
+interface HeaderProps {
+  changeOutLanguage: Function;
 }
 
-export const Header: React.FC<HeaderProps> = () => {
+interface State {
+  value: string;
+  language: string;
+  genre: string;
+  selectedDate: null | string | Date;
+  adult: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = ({ changeOutLanguage }) => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+  const [state, setState] = useState<State>({
     value: '',
     language: '',
     genre: '',
@@ -32,21 +31,21 @@ export const Header: React.FC<HeaderProps> = () => {
     adult: false,
   });
 
-  const handleChange = (field: string, newValue: string | SelectChangeEvent | Date | boolean) => {
+  const handleChange = (field: keyof State, newValue: string | SelectChangeEvent | Date | boolean) => {
     setState((prevState) => ({
       ...prevState,
       [field]: field === 'selectedDate' ? (newValue as Date).toISOString().split('T')[0] : newValue,
     }));
   };
-  
 
   const handleChangeValue = () => {
-    dispatch(getMoviesBySearch({ searchValue: state.value, language: state.language }))
-  }
+    dispatch(getMoviesBySearch({ searchValue: state.value, language: state.language }));
+  };
 
   const handleChangeLanguage = (event: SelectChangeEvent) => {
-    handleChange('language', event.target.value)
-    changeLanguage(event.target.value)
+    handleChange('language', event.target.value);
+    changeOutLanguage(event.target.value);
+    changeLanguage(event.target.value);
   };
 
   const changeLanguage = (lng: string) => {
@@ -56,36 +55,38 @@ export const Header: React.FC<HeaderProps> = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (state.genre !== '' && state.selectedDate !== null) {
-        dispatch(getMoviesByFilter({
-          genreId: state.genre, selectedDate: state.selectedDate, includeAdult: state.adult,
-          value: '',
-          language: state.language
-        }));
+        dispatch(
+          getMoviesByFilter({
+            genreId: state.genre,
+            selectedDate: state.selectedDate,
+            includeAdult: state.adult,
+            value: '',
+            language: state.language,
+          })
+        );
       }
       if (state.language !== '') {
-        dispatch(getMoviesByLanguage({ language: state.language }))
+        dispatch(getMoviesByLanguage({ language: state.language }));
       }
     };
 
     fetchData();
   }, [state.genre, state.selectedDate, state.adult, state.language, dispatch]);
 
-
   return (
     <Container>
       <Content>
         <FormControlSearch>
           <ImageSearch src={imgSrc1} alt="где картинка?" onClick={handleChangeValue} />
-          <Input1 onChange={(e) => { handleChange('value', e.target.value) }}></Input1>
+          <InputSearch onChange={(e) => handleChange('value', e.target.value)} />
         </FormControlSearch>
         <FormControlLanguage>
-          <InputLabel
-          id="demo-simple-select-helper-label">{t("language")}</InputLabel>
+          <InputLabel id="demo-simple-select-helper-label">{t('language')}</InputLabel>
           <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
             value={state.language}
-            label='language'
+            label="language"
             onChange={handleChangeLanguage}
           >
             <Option value={'en'}>English</Option>
@@ -94,16 +95,18 @@ export const Header: React.FC<HeaderProps> = () => {
           </Select>
         </FormControlLanguage>
         <FormControlDate>
-          <DatePicker label={t("datapicker")} onChange={(date) => { handleChange('selectedDate', date) }} />
+          <DatePicker label={t('datapicker')} onChange={(date) => handleChange('selectedDate', date)} />
         </FormControlDate>
         <FormControlGenre>
-          <InputLabel sx={{ fontSize: '10px', marginTop: '5px' }} id="demo-simple-select-helper-label">{t("genre")}</InputLabel>
+          <InputLabel sx={{ fontSize: '10px', marginTop: '5px' }} id="demo-simple-select-helper-label">
+            {t('genre')}
+          </InputLabel>
           <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
             value={state.genre}
             label="Ganre"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => { handleChange('genre', event.target.value) }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange('genre', event.target.value)}
           >
             <Option value={27}>Horror</Option>
             <Option value={35}>Comedia</Option>
@@ -115,10 +118,10 @@ export const Header: React.FC<HeaderProps> = () => {
         </FormControlGenre>
         <FormControlAdult>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            18+<Checkbox onClick={() => { handleChange('adult', true) }} />
+            18+<Checkbox onClick={() => handleChange('adult', true)} />
           </div>
         </FormControlAdult>
       </Content>
     </Container>
-  )
-}
+  );
+};

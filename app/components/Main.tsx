@@ -1,57 +1,68 @@
 // Main.jsx
+import React from 'react';
 import arrowLeft from '../../public/images/ArrowLeft.svg';
-import arrowRight from '../../public/images/ArrowRight.svg'
-import { Grid } from "@mui/material";
+import arrowRight from '../../public/images/ArrowRight.svg';
+import { Grid, Button } from "@mui/material";
 import { Poster } from "./Poster";
-import { SetStateAction } from "react";
+import { SetStateAction, Dispatch } from "react";
 import { MainContent } from "../styles";
 import { Loading } from "./Loading";
 import { Pagination } from "./Pagination";
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { getCurrentFilm } from '../redux/selectors'
+import { getCurrentFilm } from '../redux/selectors';
 import { setCurrentPage } from '../redux/features/movies-slice';
 import { useGetMovies } from '../hooks/useGetMovies';
 
-export const Main = () => {
-  const dispatch = useAppDispatch()
-  useGetMovies()
-  const movies = useAppSelector((state): any => state.movies.movies);
-  const currentFilm = useAppSelector(getCurrentFilm); // Use the selector
-  const currentPage = useAppSelector((state): SetStateAction<number> => state.movies.currentPage);
-  const filmsPerPage = useAppSelector((state): SetStateAction<number> => state.movies.filmsPerPage);
-  const paginate = (pageNumber: SetStateAction<number>): void => dispatch(setCurrentPage(pageNumber));
-  const totalPages = Math.ceil(movies.length / filmsPerPage);
-  const nextPage = () => dispatch(setCurrentPage(currentPage === totalPages ? 1 : currentPage + 1));
+interface MainProps {
+  language: string;
+}
 
+interface DispatchApp {
+  payload:number,
+  type: string
+}
+
+export const Main: React.FC<MainProps> = ({ language }) => {
+  const dispatch = useAppDispatch();
+  useGetMovies();
+
+  const movies = useAppSelector((state) => state.movies.movies);
+  const currentFilm = useAppSelector(getCurrentFilm); // Use the selector
+  const currentPage = useAppSelector((state) => state.movies.currentPage);
+  const filmsPerPage = useAppSelector((state) => state.movies.filmsPerPage);
+
+  const paginate = (pageNumber: SetStateAction<number>): DispatchApp => dispatch(setCurrentPage(pageNumber));
+  const totalPages = Math.ceil(movies.length / filmsPerPage);
+
+  const nextPage = () => dispatch(setCurrentPage(currentPage === totalPages ? 1 : currentPage + 1));
   const prevPage = () => dispatch(setCurrentPage(currentPage === 1 ? totalPages : currentPage - 1));
-  ;
 
   return (
     <>
-      {movies.length == 0 ? (
+      {movies.length === 0 ? (
         <Loading />
       ) : (
         <MainContent>
           <Grid container spacing={{ xs: 0, md: 12 }}>
             {currentFilm.map((movie: any, index: number) => (
               <Grid item key={movie.id}>
-                <Poster style={{ paddingLeft: '146px' }} movie={movie} index={movie} array={movies} />
+                <Poster lang={language} style={{ paddingLeft: '146px' }} movie={movie} index={movie} array={movies} />
               </Grid>
             ))}
           </Grid>
           <div className="main-pagination">
-            <button className="btn pagination__btn pagination__btn_left" onClick={prevPage}>
+            <Button className="btn pagination__btn pagination__btn_left" onClick={prevPage}>
               <Image src={arrowLeft} alt='left' />
-            </button>
+            </Button>
             <Pagination
               filmsPerPage={filmsPerPage} totalFilms={movies.length} currentPage={currentPage} paginate={paginate}
             />
-            <button className="btn pagination__btn  pagination__btn_right" onClick={nextPage}>
+            <Button className="btn pagination__btn  pagination__btn_right" onClick={nextPage}>
               <Image src={arrowRight} alt='right' />
-            </button>
+            </Button>
           </div>
-        </MainContent >
+        </MainContent>
       )}
     </>
   );

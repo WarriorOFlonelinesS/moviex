@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
+import { Poster } from "./components/Poster";
 
 export const Select = styled(Select)`
   font-size: 15px;
@@ -89,4 +90,8 @@ export const Text = styled.p`
   font-size: 12px;
   width: 150px;
   font-weight: bold;
+`;
+
+export const Poster = styled(Poster)`
+  padding-left: 146px;
 `;

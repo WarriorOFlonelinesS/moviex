@@ -13,6 +13,8 @@ function* saga() {
   yield takeEvery(GET_MOVIES_BY_LANGUAGE, getMoviesByLanguageSaga)
 }
 
+
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
@@ -24,8 +26,8 @@ const store = configureStore({
 });
 
 sagaMiddleware.run(saga);
-
-export type AppStore = ReturnType<typeof configureStore>;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = typeof store;
 export type AppDispatch = AppStore["dispatch"];
 
 export default store;

@@ -1,5 +1,15 @@
 {
     "language":"Мова",
     "datapicker":"Оберіть дату",
-    "genre": "Жанр"
+    "genre": "Жанр",
+    "activeModal": "Залиш свою оцінку",
+    "backToMain": "Назад на головну",
+    "rating": "Рейтинг фільму",
+    "addButton": "Додати оцінку",
+    "deleteButton": "Видалити оцінку",
+    "placeholder": "Додай свою оцінку",
+    "information": "Інформаційне зображення",
+    "star": "Зірок",
+    "logo":"Логотип",
+    "poster": "Постер"
 }

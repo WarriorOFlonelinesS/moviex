@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormControl, InputLabel, Container, Checkbox } from '@mui/material';
+import { InputLabel, Container, Checkbox } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import imgSrc1 from '../../public/images/Vector.svg';
@@ -12,11 +12,11 @@ interface HeaderProps {
   changeOutLanguage: Function;
 }
 
-interface State {
+export interface State {
   value: string;
   language: string;
-  genre: string;
-  selectedDate: null | string | Date;
+  genre: string; // Свойство переименовано с genreId на genre
+  selectedDate: null | string | Date | unknown;
   adult: boolean;
 }
 
@@ -31,12 +31,21 @@ export const Header: React.FC<HeaderProps> = ({ changeOutLanguage }) => {
     adult: false,
   });
 
-  const handleChange = (field: keyof State, newValue: string | SelectChangeEvent | Date | boolean) => {
+  console.log(state.selectedDate)
+
+  const handleChange = (field: keyof State, newValue: string | SelectChangeEvent | Date | boolean | unknown) => {
     setState((prevState) => ({
       ...prevState,
-      [field]: field === 'selectedDate' ? (newValue as Date).toISOString().split('T')[0] : newValue,
-    }));
+      [field]:
+        field === 'selectedDate'
+          ? typeof newValue === 'string'
+            ? newValue 
+            : (newValue as Date).toISOString().split('T')[0]
+          : newValue,
+    })
+    );
   };
+
 
   const handleChangeValue = () => {
     dispatch(getMoviesBySearch({ searchValue: state.value, language: state.language }));
@@ -95,7 +104,11 @@ export const Header: React.FC<HeaderProps> = ({ changeOutLanguage }) => {
           </Select>
         </FormControlLanguage>
         <FormControlDate>
-          <DatePicker label={t('datapicker')} onChange={(date) => handleChange('selectedDate', date)} />
+          <DatePicker
+            label={t('datapicker')}
+            onChange={(date) => handleChange('selectedDate', date)}
+          />
+
         </FormControlDate>
         <FormControlGenre>
           <InputLabel sx={{ fontSize: '10px', marginTop: '5px' }} id="demo-simple-select-helper-label">

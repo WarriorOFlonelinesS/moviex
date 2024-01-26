@@ -1,25 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface MoviesState {
-  movies: any[];
-  userRatings:any,
-  newRatings: any,
-  currentPage: number;
-  filmsPerPage: number;
-  status:string;
-  error: null | string
+interface Props {
+  movies: {
+    id: number;
+  };
 }
 
-  const initialState: MoviesState = {
-    movies: [],
-    userRatings: {}, // Змінив userRatings на об'єкт
-    newRatings: {},
-    currentPage : 1,
-    filmsPerPage: 8,  
-    status: "idle",
-    error: null,
-  }
+export interface MoviesState {
+  movies: Props[];
+  userRatings: any;
+  currentPage: number;
+  filmsPerPage: number;
+  status: string;
+  error: null | string;
+}
 
+const initialState: MoviesState = {
+  movies: [],
+  userRatings: {},
+  currentPage: 1,
+  filmsPerPage: 8,
+  status: "idle",
+  error: null,
+};
 
 const moviesSlice = createSlice({
   name: "movies",
@@ -33,27 +36,26 @@ const moviesSlice = createSlice({
       state.status = "failed";
       state.error = action.payload;
     },
-    addRating: (state:any, action) => {
+    addRating: (state: MoviesState, action) => {
       const { movieId, rating } = action.payload;
-      state.userRatings[movieId] = rating; // Змінив userRatings на об'єкт і додав новий рейтинг
-      state.newRatings[movieId] = recalculateVoteAverage(state.userRatings); // Виправив передачу параметрів
+      state.userRatings[movieId] = rating;
     },
-    removeRating: (state:any, action) => {
+    removeRating: (state, action) => {
       const { movieId } = action.payload;
-      delete state.newRatings[movieId];
+      delete state.userRatings[movieId];
     },
-    setCurrentPage: (state:any, action) => {
-      state.currentPage=action.payload
-    }
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
   },
 });
 
-const recalculateVoteAverage = (ratings:any) => { 
-  const totalRatings = Object.values(ratings).reduce((acc:number, rating:any) => acc + rating, 0);
-  const averageRating = totalRatings / Object.keys(ratings).length;
-  return averageRating;
-};
-
-export const { getMoviesSuccess, getMoviesFailure, addRating, removeRating, setCurrentPage } = moviesSlice.actions;
+export const {
+  getMoviesSuccess,
+  getMoviesFailure,
+  addRating,
+  removeRating,
+  setCurrentPage,
+} = moviesSlice.actions;
 
 export default moviesSlice.reducer;

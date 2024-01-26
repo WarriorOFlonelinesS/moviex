@@ -1,5 +1,15 @@
 {
     "language":"Language",
     "datapicker":"Choise the date",
-    "genre": "Genre"
+    "genre": "Genre",
+    "activeModal": "Leave your review",
+    "rating": "Rating of the movie",
+    "backToMain": "Back to main",
+    "addButton": "Add review",
+    "deleteButton": "Delete review",
+    "placeholder": "Add your rating",
+    "information": "Information image",
+    "star": "Stars",
+    "logo":"Logo",
+    "poster": "Poster"
 }

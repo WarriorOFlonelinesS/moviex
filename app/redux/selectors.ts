@@ -1,10 +1,22 @@
 import { createSelector } from 'reselect';
-import { AppStore } from './store';
 
+export type TMoviesData = {
+  type: string;
+};
 
-const getMovies = (state:AppStore) => state.movies.movies;
-const getCurrentPage = (state:AppStore) => state.movies.currentPage;
-const getFilmsPerPage = (state) => state.movies.filmsPerPage;
+interface IMoviesState {
+  movies : TMoviesData[];
+  currentPage: number;
+  filmsPerPage: number;
+};
+
+export type TState = {
+  movies: IMoviesState;
+};
+
+const getMovies = (state:TState) => state.movies.movies;
+const getCurrentPage = (state: TState) => state.movies.currentPage;
+const getFilmsPerPage = (state: TState) => state.movies.filmsPerPage;
 
 export const getCurrentFilm = createSelector(
   [getMovies, getCurrentPage, getFilmsPerPage],

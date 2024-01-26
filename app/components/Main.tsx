@@ -27,11 +27,10 @@ export const Main: React.FC<MainProps> = ({ language }) => {
   const dispatch = useAppDispatch();
   useGetMovies();
 
-  const movies = useAppSelector((state) => state.movies.movies);
-  const currentFilm = useAppSelector(getCurrentFilm); // Use the selector
-  const currentPage = useAppSelector((state) => state.movies.currentPage);
-  const filmsPerPage = useAppSelector((state) => state.movies.filmsPerPage);
-
+  const movies = useAppSelector((state: any) => state.movies.movies);
+  const currentFilm = useAppSelector(getCurrentFilm); 
+  const currentPage = useAppSelector((state: any) => state.movies.currentPage);
+  const filmsPerPage = useAppSelector((state: any) => state.movies.filmsPerPage);
   const paginate = (pageNumber: SetStateAction<number>): DispatchApp => dispatch(setCurrentPage(pageNumber));
   const totalPages = Math.ceil(movies.length / filmsPerPage);
 
@@ -45,9 +44,9 @@ export const Main: React.FC<MainProps> = ({ language }) => {
       ) : (
         <MainContent>
           <Grid container spacing={{ xs: 0, md: 12 }}>
-            {currentFilm.map((movie: any, index: number) => (
+            {currentFilm.map((movie:Props) => (
               <Grid item key={movie.id}>
-                <Poster lang={language} style={{ paddingLeft: '146px' }} movie={movie} index={movie} array={movies} />
+                <Poster lang={language} movie={movie} />
               </Grid>
             ))}
           </Grid>

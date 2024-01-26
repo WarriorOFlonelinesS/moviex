@@ -122,7 +122,7 @@ export const Header: React.FC<HeaderProps> = ({ changeOutLanguage }) => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange('genre', event.target.value)}
           >
             <Option value={27}>Horror</Option>
-            <Option value={35}>Comedia</Option>
+            <Option value={35}>Comedy</Option>
             <Option value={878}>Sci-fi</Option>
             <Option value={14}>Fantasy</Option>
             <Option value={16}>Animation</Option>

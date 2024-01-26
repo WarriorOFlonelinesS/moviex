@@ -4,7 +4,7 @@ import fallbackImage from '../../public/images/placeholder.png'
 import tooltipImage from '../../public/images/tooltip.svg'
 import Link from 'next/link';
 import { urlImages, urlMoviePage } from "@/constans/urls";
-import { Text } from "../styles";
+import { Text, Title } from "../styles";
 import { t } from "i18next";
 
 interface Props {
@@ -39,9 +39,9 @@ export const Poster = ({ movie, lang}: Props) => {
                     </p>
                 </div>
             </div>
-            <Text>
+            <Title>
                 {movie.title}
-            </Text>
+            </Title>
             <Text>
                 {movie.release_date}
             </Text>

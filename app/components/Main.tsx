@@ -10,7 +10,7 @@ import { Loading } from "./Loading";
 import { Pagination } from "./Pagination";
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { getCurrentFilm } from '../redux/selectors';
+import { TMoviesData, getCurrentFilm } from '../redux/selectors';
 import { setCurrentPage } from '../redux/features/movies-slice';
 import { useGetMovies } from '../hooks/useGetMovies';
 
@@ -44,7 +44,7 @@ export const Main: React.FC<MainProps> = ({ language }) => {
       ) : (
         <MainContent>
           <Grid container spacing={{ xs: 0, md: 12 }}>
-            {currentFilm.map((movie:Props) => (
+            {currentFilm.map((movie:TMoviesData) => (
               <Grid item key={movie.id}>
                 <Poster lang={language} movie={movie} />
               </Grid>

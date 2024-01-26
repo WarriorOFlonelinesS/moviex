@@ -86,12 +86,25 @@ export const InputLabel = styled(InputLabel)`
   margin-top: 4px;
 `;
 
-export const Text = styled.p`
+export const Title = styled.p`
+  color: #000;
+  font-family: Poppins;
   font-size: 12px;
-  width: 150px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const Text = styled.p`
+  color: rgba(0, 0, 0, 0.25);
+  font-family: Poppins;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;
 
 export const Poster = styled(Poster)`
   padding-left: 146px;
+
 `;

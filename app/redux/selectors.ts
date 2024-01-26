@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 
 export type TMoviesData = {
   type: string;
+  id: number;
+  release_date: string
 };
 
 interface IMoviesState {

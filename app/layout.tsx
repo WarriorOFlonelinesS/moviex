@@ -19,22 +19,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <header>
-      <link rel="icon" href='../public/icon/favicon.ico' sizes="any" />
-      </header>
-      <body>
-        <div className='logo'>
-          <div className='logo-content'>
-            <Image src={logoHeader} style={{ marginBottom: '15px' }} alt='logo' />
-          </div>
-        </div>
-        <Suspense fallback="...Loading">
-          <LanguageProvider>
-            <ReduxProvider>
-              {children}
-            </ReduxProvider>
-          </LanguageProvider>
-        </Suspense>
-      </body>
-    </html>
-  )
+        <link rel="icon" href='../public/icon/favicon.ico' sizes="any" />
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet"/>
+          </header>
+          <body>
+            <div className='logo'>
+              <div className='logo-content'>
+                <Image src={logoHeader} style={{ marginBottom: '15px' }} alt='logo' />
+              </div>
+            </div>
+            <Suspense fallback="...Loading">
+              <LanguageProvider>
+                <ReduxProvider>
+                  {children}
+                </ReduxProvider>
+              </LanguageProvider>
+            </Suspense>
+          </body>
+        </html>
+        )
 }

@@ -74,38 +74,35 @@
 
 ## Usage
 <p>
-  Before using the application you should follow the link "Войти в аккаунт" and sing in or sign up through the Google button. 
+ To go to the movie page, you need to click on its poster.
 </p>
 
-![image](https://github.com/WarriorOFlonelinesS/chat-quizz/assets/98014616/362f2903-00ff-47f0-bc45-76d7d51efc8d)
-<br>
-![image](https://github.com/WarriorOFlonelinesS/chat-quizz/assets/98014616/1b72451f-1b04-41e7-82bb-bd892d567608)
-
+ ![image](https://github.com/WarriorOFlonelinesS/moviex/assets/98014616/40a13524-782d-4801-a46e-605e1782f86c)
+ 
 <p>
-  Аfter logging into the account, you can write in the chat or take part in the quiz
+  To add a rating from 0 to 10 you can click on the button 'Add rating', to delete the current rating click on the button 'Delete rating'.
 </p>
 
-![image](https://github.com/WarriorOFlonelinesS/chat-quizz/assets/98014616/570f238c-9a99-463d-a03a-2e7590dc374c)
-
-<p>
-  If you click on the button "Сыграть" you can see a message about begginig of a game
-</p>
-
-![image](https://github.com/WarriorOFlonelinesS/chat-quizz/assets/98014616/e0ff2058-785a-4e4a-89af-29bb05bcfd94)
-
-<p>
-    After passing a game, you can see a result on the rating
-</p>
-
-![image](https://github.com/WarriorOFlonelinesS/chat-quizz/assets/98014616/04716d06-4bb5-4c1f-99d5-b617b471f292)
+![image](https://github.com/WarriorOFlonelinesS/moviex/assets/98014616/6461bf2e-1fde-46e0-ad62-39e1f06c66eb)
 
 
 <p>
-    If you click on the button 'Закончить игру', you will see a message about ending or you can restart a game if you click on the button 'Попробовать снова" 
+   To filter movies, you can use the Premiere Calendar, genre and the "+18" checkbox.
 </p>
 
-![image](https://github.com/WarriorOFlonelinesS/chat-quizz/assets/98014616/09f75158-c028-4943-ba01-0880ca6e679a)
+![image](https://github.com/WarriorOFlonelinesS/moviex/assets/98014616/bda8eaee-7df4-4baf-8739-09f7893742be)
 
+<p>
+    To change the language use the Language drop-down menu.
+</p>
+
+![image](https://github.com/WarriorOFlonelinesS/moviex/assets/98014616/adafafd0-e420-4f95-aefb-bb75675824be)
+
+<p>
+    You can use pagination to watch a large number of movies.
+</p>
+
+![image](https://github.com/WarriorOFlonelinesS/moviex/assets/98014616/0a8943f6-a5d0-48c4-94fc-e26897b9cdc5)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
